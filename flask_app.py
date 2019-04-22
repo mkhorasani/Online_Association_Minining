@@ -2,17 +2,22 @@ import os
 from flask import Flask, request, redirect, url_for, render_template, send_from_directory
 from werkzeug.utils import secure_filename
 
-
 import sys
 import re
 from apyori import apriori
 import time
 
+from forms import UploadForm
+
 UPLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/uploads/'
 DOWNLOAD_FOLDER = os.path.dirname(os.path.abspath(__file__)) + '/downloads/'
-ALLOWED_EXTENSIONS = {'txt'}
+
+class Config(object):
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'form-secret-key'
 
 app = Flask(__name__, static_url_path="/static")
+app.config.from_object(Config)
+
 DIR_PATH = os.path.dirname(os.path.realpath(__file__))
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
@@ -20,29 +25,27 @@ app.config['DOWNLOAD_FOLDER'] = DOWNLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 8 * 1024 * 1024
 
 
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    form = UploadForm()
+
     if request.method == 'POST':
-        if 'file' not in request.files:
-            print('No file attached in request')
-            return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            print('No file selected')
-            return redirect(request.url)
-        if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            process_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), filename)
+        if form.validate_on_submit():
+            support = form.support.data
+            confidence = form.confidence.data
+            f = form.transactions_file.data
+
+            filename = secure_filename(f.filename)
+            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+
+            f.save(path)
+            process_file(path, filename, support, confidence)
+
             return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('/index.html')
+    return render_template('/index.html', form=form)
 
 
-def process_file(path, filename):
+def process_file(path, filename, support, confidence):
     #remove_watermark(path, filename)
     association_mining(path, filename)
     # with open(path, 'a') as f:
@@ -51,13 +54,13 @@ def process_file(path, filename):
 
 
 
-def association_mining(path, filename):
+def association_mining(path, filename, min_support=0.01, min_conf=0.05):
   
     start_time = time.time()
 
     #Importing dataset
-    file = open(path,'r')
-    data = file.readlines()
+    f = open(path,'r')
+    data = f.readlines()
     #data = data[0:1000]
 
     #Parsing and delimiting dataset
@@ -68,8 +71,7 @@ def association_mining(path, filename):
         data[i] = re.split(';', data[i])
 
     #Executing association mining using the apriori toolkit
-    min_support = 0.05
-    association_results = apriori(data, min_support = 0.01)
+    association_results = apriori(data, min_support = min_support)
     results = list(association_results)
 
     #Creating a list of lists of the support, itemsets

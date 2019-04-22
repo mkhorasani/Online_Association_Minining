@@ -9,9 +9,24 @@
     <h1>Online Association Miner</h1>
     <h2>Upload text file</h2>
     <form method=post enctype=multipart/form-data>
-        <p><input type=file name=file>
-            <input type=submit value=Upload>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.transactions_file.label }}
+            {{ form.transactions_file }}<br>
+
+            {{ form.support.label }}
+            {{ form.support(size=10) }}<br>
+            {% for error in form.support.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
+
+            {{ form.confidence.label }}
+            {{ form.confidence(size=10) }}<br>
+            {% for error in form.confidence.errors %}
+            <span style="color: red;">[{{ error }}]</span><br>
+            {% endfor %}
         </p>
+        <p>{{ form.submit() }}</p>
     </form>
 </div>
 </body>

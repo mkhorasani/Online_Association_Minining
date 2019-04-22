@@ -93,22 +93,6 @@ def association_mining(path, filename):
             f.write("%s\n" % item)
 
 
-    
-
-
-
-
-#def remove_watermark(path, filename):
-#    input_file = PdfFileReader(open(path, 'rb'))
-#    output = PdfFileWriter()
-#    for page_number in range(input_file.getNumPages()):
-#        page = input_file.getPage(page_number)
-#        page.mediaBox.lowerLeft = (page.mediaBox.getLowerLeft_x(), 20)
-#        output.addPage(page)
-#    output_stream = open(app.config['DOWNLOAD_FOLDER'] + filename, 'wb')
-#    output.write(output_stream)
-
-
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
     

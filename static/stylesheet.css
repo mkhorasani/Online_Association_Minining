@@ -1,0 +1,104 @@
+/* Page */
+
+body {
+    background-color: #EDFFFC;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+.heading {
+    margin-bottom: 50px;
+    padding: 5px;
+    background-color: #9FBCCD;
+    border-radius: 50px;
+    width: 70rem;
+}
+
+.info {
+    width: 25%;
+    float: left;
+    margin-left: 2%;
+    border: 5px #FF7B88 dashed;
+    border-radius: 20px;
+    padding: 10px 25px;
+}
+
+.form {
+    width: 60%;
+    float: right;
+    margin-right: 2%;
+}
+
+h1 {
+    color: #1F6C99;
+    font-size: 3rem;
+}
+
+h2 {
+    color: #1F6C99;
+}
+
+/* Form */
+
+.formError {
+    color: #CC474C;
+}
+
+input#support, input#confidence {
+    border-radius: 25px;
+    height: 30px;
+    font-size: 20px;
+    text-align: center;
+}
+
+input#transactions_file {
+    font-size: 20px;
+    /*padding: 5px 15px;*/
+    /*border-radius: 15px;
+    border: 1px solid black;*/
+}
+
+input#submit {
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: 2px solid #1F6C99;
+    background-color: #1F6C99;
+    color: #9FBCCD;
+    cursor: pointer;
+}
+input#submit:hover {
+    background-color: #9FBCCD;
+    color: #1F6C99;
+}
+
+/* Table */
+
+td {
+    height: 50px;
+}
+
+td.label {
+    background-color: #FF7B88;
+    border-radius: 25px;
+    text-align: center;
+    color: #EDFFFC;
+    width: 30%;
+    font-size: 20px
+}
+
+td.empty {
+    width: 2%;
+}
+
+td.input {
+    width: 25%;
+}
+
+td.error {
+    width: 40%;
+    font-size: 15px;
+}
+
+tr.empty {
+    height: 15px;
+}

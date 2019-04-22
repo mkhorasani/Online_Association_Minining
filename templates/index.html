@@ -1,33 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
     <meta charset="UTF-8">
     <title>Online Association Miner</title>
 </head>
 <body>
 <div align="center">
-    <h1>Online Association Miner</h1>
-    <h2>Upload text file</h2>
-    <form method=post enctype=multipart/form-data>
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.transactions_file.label }}
-            {{ form.transactions_file }}<br>
-
-            {{ form.support.label }}
-            {{ form.support(size=10) }}<br>
-            {% for error in form.support.errors %}
-            <span style="color: red;">[{{ error }}]</span><br>
-            {% endfor %}
-
-            {{ form.confidence.label }}
-            {{ form.confidence(size=10) }}<br>
-            {% for error in form.confidence.errors %}
-            <span style="color: red;">[{{ error }}]</span><br>
-            {% endfor %}
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    <div class="heading">
+        <h1>Online Association Miner</h1>
+    </div>
+    <div class="info">
+        <h2>Usage Instructions</h2>
+        <p>This is an explanation on how to use this app, as well as what support and confidence are.</p>
+    </div>
+    <div class="form">
+        <form method=post enctype=multipart/form-data>
+            {{ form.hidden_tag() }}
+            <table class="formTable">
+                <tr>
+                    <td class="label">{{ form.transactions_file.label }}</td>
+                    <td class="empty"></td>
+                    <td class="input">{{ form.transactions_file }}</td>
+                </tr>
+                <tr class="empty"></tr>
+                <tr>
+                    <td class="label">{{ form.support.label }}</td>
+                    <td class="empty"></td>
+                    <td class="input">{{ form.support(size=10) }}</td>
+                    <td class="error">
+                        {% for error in form.support.errors %}
+                        <span class="formError">[{{ error }}]</span><br>
+                        {% endfor %}
+                    </td>
+                </tr>
+                <tr class="empty"></tr>
+                <tr>
+                    <td class="label">{{ form.confidence.label }}</td>
+                    <td class="empty"></td>
+                    <td class="input">{{ form.confidence(size=10) }}</td>
+                    <td class="error">
+                        {% for error in form.confidence.errors %}
+                        <span class="formError">[{{ error }}]</span><br>
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+            <p id="uploadButton">{{ form.submit() }}</p>
+        </form>
+    </div>
 </div>
 </body>
 </html>

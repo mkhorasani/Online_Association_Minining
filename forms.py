@@ -14,7 +14,7 @@ class UploadForm(FlaskForm):
     support = DecimalField('Minimum Support', places=None, default=0.01,
         validators=[NumberRange(min=0)])
 
-    confidence = DecimalField('Minimum Confidence', places=None, default=0.05,
+    confidence = DecimalField('Minimum Confidence', places=None, default=0,
         validators=[NumberRange(min=0)])
 
     submit = SubmitField('Upload')

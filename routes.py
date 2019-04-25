@@ -20,12 +20,12 @@ def index():
             filename = secure_filename(f.filename)
             data = f.readlines()
 
-            process_file(data, filename, support, confidence)
+            output_filename = process_file(data, filename, support, confidence)
 
-            return redirect(url_for('uploaded_file', filename=filename))
-    return render_template('/index.html', form=form)
+            return render_template('/index.html', form=form, result=output_filename)
+            # return redirect(url_for('uploaded_file', filename=output_filename))
+    return render_template('/index.html', form=form, result=None)
 
-@app.route('/uploads/<filename>')
+@app.route('/download/<filename>', methods=['POST'])
 def uploaded_file(filename):
-    
     return send_from_directory(app.config['DOWNLOAD_FOLDER'], (filename), as_attachment=True)

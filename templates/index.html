@@ -9,51 +9,63 @@
 </head>
 <body>
 <div align="center">
-    <div class="heading">
+    <div id="heading">
         <h1>Online Association Miner</h1>
     </div>
-    <div class="info">
+    <div id="info">
         <h2>Usage Instructions</h2>
-        <p>This is an explanation on how to use this app, as well as what support and confidence are.</p>
+        <p>This is an explanation on how to use this app, what support and confidence are, and what input file format the app expects.</p>
     </div>
-    <div class="form">
-        <form method=post enctype=multipart/form-data>
-            {{ form.hidden_tag() }}
-            <table class="formTable">
-                <tr>
-                    <td class="label">{{ form.transactions_file.label }}</td>
-                    <td class="empty"></td>
-                    <td class="input">
-                        {{ form.transactions_file }}
-                        <button id="trans_file_nice_button" name="trans_file_nice_button">Choose File</button>
-                        <span id="selected_file_name"></span>
-                    </td>
-                </tr>
-                <tr class="empty"></tr>
-                <tr>
-                    <td class="label">{{ form.support.label }}</td>
-                    <td class="empty"></td>
-                    <td class="input">{{ form.support(size=10) }}</td>
-                    <td class="error">
-                        {% for error in form.support.errors %}
-                        <span class="formError">[{{ error }}]</span><br>
-                        {% endfor %}
-                    </td>
-                </tr>
-                <tr class="empty"></tr>
-                <tr>
-                    <td class="label">{{ form.confidence.label }}</td>
-                    <td class="empty"></td>
-                    <td class="input">{{ form.confidence(size=10) }}</td>
-                    <td class="error">
-                        {% for error in form.confidence.errors %}
-                        <span class="formError">[{{ error }}]</span><br>
-                        {% endfor %}
-                    </td>
-                </tr>
-            </table>
-            <p id="uploadButton">{{ form.submit() }}</p>
-        </form>
+    <div id="right_container">
+        <div id="form">
+            <form method=post enctype=multipart/form-data>
+                {{ form.hidden_tag() }}
+                <table class="formTable">
+                    <tr>
+                        <td class="label">{{ form.transactions_file.label }}</td>
+                        <td class="empty"></td>
+                        <td class="input">
+                            {{ form.transactions_file }}
+                            <button id="trans_file_nice_button" class="nice_button" name="trans_file_nice_button">Choose File</button>
+                            <span id="selected_file_name"></span>
+                        </td>
+                    </tr>
+                    <tr class="empty"></tr>
+                    <tr>
+                        <td class="label">{{ form.support.label }}</td>
+                        <td class="empty"></td>
+                        <td class="input">{{ form.support(size=10) }}</td>
+                        <td class="error">
+                            {% for error in form.support.errors %}
+                            <span class="formError">[{{ error }}]</span><br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr class="empty"></tr>
+                    <tr>
+                        <td class="label">{{ form.confidence.label }}</td>
+                        <td class="empty"></td>
+                        <td class="input">{{ form.confidence(size=10) }}</td>
+                        <td class="error">
+                            {% for error in form.confidence.errors %}
+                            <span class="formError">[{{ error }}]</span><br>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                </table>
+                <p id="uploadButton">{{ form.submit(class_="nice_button") }}</p>
+            </form>
+        </div>
+        {% if result is not none and result != "" %}
+        <div id="results">
+            <p>Your file has finished processing. You should see the results file being downloaded automatically.</p>
+            <p>To redownload your latest results file again, click the button below.</p>
+            <form action="download/{{result}}" method="post">
+                <button id="download_button" class="nice_button" name="download_button" type="submit">Download Results</button>
+            </form>
+        </div>
+        <script>$("#download_button").click();</script>
+        {% endif %}
     </div>
 </div>
 </body>

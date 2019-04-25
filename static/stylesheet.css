@@ -5,7 +5,7 @@ body {
     font-family: Verdana, Geneva, sans-serif;
 }
 
-.heading {
+#heading {
     margin-bottom: 50px;
     padding: 5px;
     background-color: #9FBCCD;
@@ -13,7 +13,7 @@ body {
     width: 70rem;
 }
 
-.info {
+#info {
     width: 25%;
     float: left;
     margin-left: 2%;
@@ -22,10 +22,14 @@ body {
     padding: 10px 25px;
 }
 
-.form {
+#right_container {
     width: 60%;
     float: right;
     margin-right: 2%;
+}
+
+#results {
+    margin-top: 50px;
 }
 
 h1 {
@@ -61,7 +65,7 @@ button#trans_file_nice_button {
     z-index: 2;
 }
 
-input#submit, button#trans_file_nice_button {
+.nice_button {
     font-size: 18px;
     padding: 10px 25px;
     border-radius: 25px;
@@ -70,7 +74,7 @@ input#submit, button#trans_file_nice_button {
     color: #9FBCCD;
     cursor: pointer;
 }
-input#submit:hover, button#trans_file_nice_button:hover {
+.nice_button:hover {
     background-color: #9FBCCD;
     color: #1F6C99;
 }

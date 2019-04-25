@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
     <meta charset="UTF-8">
     <title>Online Association Miner</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheet.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
 </head>
 <body>
 <div align="center">
@@ -21,7 +23,11 @@
                 <tr>
                     <td class="label">{{ form.transactions_file.label }}</td>
                     <td class="empty"></td>
-                    <td class="input">{{ form.transactions_file }}</td>
+                    <td class="input">
+                        {{ form.transactions_file }}
+                        <button id="trans_file_nice_button" name="trans_file_nice_button">Choose File</button>
+                        <span id="selected_file_name"></span>
+                    </td>
                 </tr>
                 <tr class="empty"></tr>
                 <tr>

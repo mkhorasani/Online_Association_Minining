@@ -46,19 +46,23 @@ h2 {
 input#support, input#confidence {
     border-radius: 25px;
     height: 30px;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
 }
 
 input#transactions_file {
-    font-size: 20px;
-    /*padding: 5px 15px;*/
-    /*border-radius: 15px;
-    border: 1px solid black;*/
+    font-size: 18px;
+    opacity: 0;
+    position: absolute;
 }
 
-input#submit {
-    font-size: 20px;
+button#trans_file_nice_button {
+    position: relative;
+    z-index: 2;
+}
+
+input#submit, button#trans_file_nice_button {
+    font-size: 18px;
     padding: 10px 25px;
     border-radius: 25px;
     border: 2px solid #1F6C99;
@@ -66,9 +70,15 @@ input#submit {
     color: #9FBCCD;
     cursor: pointer;
 }
-input#submit:hover {
+input#submit:hover, button#trans_file_nice_button:hover {
     background-color: #9FBCCD;
     color: #1F6C99;
+}
+
+#selected_file_name {
+    min-width: 50px;
+    display: inline-block;
+    font-size: 18px;
 }
 
 /* Table */
@@ -83,7 +93,7 @@ td.label {
     text-align: center;
     color: #EDFFFC;
     width: 30%;
-    font-size: 20px
+    font-size: 18px
 }
 
 td.empty {

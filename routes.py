@@ -18,10 +18,9 @@ def index():
             f = form.transactions_file.data
 
             filename = secure_filename(f.filename)
-            path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            data = f.readlines()
 
-            f.save(path)
-            process_file(path, filename, support, confidence)
+            process_file(data, filename, support, confidence)
 
             return redirect(url_for('uploaded_file', filename=filename))
     return render_template('/index.html', form=form)

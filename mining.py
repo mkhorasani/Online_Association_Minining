@@ -5,26 +5,15 @@ import time
 from flask_app import app
 
 
-def process_file(path, filename, support, confidence):
-    #remove_watermark(path, filename)
-    association_mining(path, filename, support, confidence)
-    # with open(path, 'a') as f:
-    #    f.write("\nAdded processed content")
-
-def association_mining(path, filename, min_support=0.01, min_conf=0):
-    start_time = time.time()
-
-    #Importing dataset
-    f = open(path,'r')
-    data = f.readlines()
-    #data = data[0:1000]
-
+def process_file(data, filename, support, confidence):
     #Parsing and delimiting dataset
-    for i in range(0,len(data)):
-        data[i] = data[i].replace('\n','')
-        
-    for i in range(0,len(data)):
-        data[i] = re.split(';', data[i])
+    data = [d.decode("utf-8").strip().split(";") for d in data]
+
+    association_mining(data, filename, support, confidence)
+
+
+def association_mining(data, filename, min_support=0.01, min_conf=0):
+    start_time = time.time()
 
     #Executing association mining using the apriori toolkit
     association_results = apriori(data, min_support = min_support, min_confidence=min_conf)
